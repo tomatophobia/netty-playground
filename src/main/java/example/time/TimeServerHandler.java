@@ -9,10 +9,9 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 public class TimeServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        final ByteBuf time = ctx.alloc().buffer(4);
-        time.writeInt((int) (System.currentTimeMillis() / 1000L + 2208988800L));
+        // 바이트를 쓰는 것이 아니므로 어디선가 인코딩이 있어야 한다.
+        final ChannelFuture f = ctx.writeAndFlush(new UnixTime());
 
-        final ChannelFuture f = ctx.writeAndFlush(time);
         // f.addListener(ChannelFutureListener.CLOSE); 로 대체 가능
         f.addListener(new ChannelFutureListener() {
             @Override
