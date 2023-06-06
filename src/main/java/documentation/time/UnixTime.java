@@ -1,4 +1,4 @@
-package example.time;
+package documentation.time;
 
 import java.util.Date;
 
