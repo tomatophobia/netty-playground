@@ -44,7 +44,6 @@ public class EchoClient {
             System.err.println("Usage: " + EchoClient.class.getSimpleName() + " <host> <port>");
             return;
         }
-
         String host = args[0];
         int port = Integer.parseInt(args[1]);
         new EchoClient(host, port).start();

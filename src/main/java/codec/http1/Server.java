@@ -52,6 +52,6 @@ public class Server {
         if (args.length > 0) {
             port = Integer.parseInt(args[0]);
         }
-        new Server(port).run();
+        new Server(port, false).run();
     }
 }
