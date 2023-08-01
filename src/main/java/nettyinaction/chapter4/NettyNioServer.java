@@ -14,12 +14,11 @@ import java.nio.charset.Charset;
 public class NettyNioServer {
     public void server(int port) throws Exception {
         final ByteBuf buf = Unpooled.unreleasableBuffer(Unpooled.copiedBuffer("Hi!\r\n", Charset.forName("UTF-8")));
-        EventLoopGroup group = new NioEventLoopGroup();  // OIO와 다른 줄
-
+        EventLoopGroup group = new NioEventLoopGroup();
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(group)
-                    .channel(NioServerSocketChannel.class)  // OIO와 다른 줄
+                    .channel(NioServerSocketChannel.class)
                     .localAddress(new InetSocketAddress(port))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
@@ -28,7 +27,8 @@ public class NettyNioServer {
                                     new ChannelInboundHandlerAdapter() {
                                         @Override
                                         public void channelActive(ChannelHandlerContext ctx) throws Exception {
-                                            ctx.writeAndFlush(buf.duplicate()).addListener(ChannelFutureListener.CLOSE);
+                                            ctx.writeAndFlush(buf.duplicate())
+                                                    .addListener(ChannelFutureListener.CLOSE);
                                         }
                                     }
                             );
